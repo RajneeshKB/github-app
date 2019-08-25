@@ -1,0 +1,79 @@
+.github-app{
+    width: 500px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+    margin: 0;
+}
+
+.github-app .search-container{
+    border: 1px solid darkgrey;
+    padding: 15px 10px;
+    background-color: lightgrey;
+}
+
+.github-app .search-container .find-repo-container{
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+}
+
+.h25{
+    height: 25px;
+}
+
+.w71{
+    width: 71%;
+}
+
+.w11{
+    width: 11%;
+}
+
+.w15{
+    width: 15%;
+}
+
+.mr4{
+    margin-right: 4px;
+}
+
+.m0{
+    margin: 0px;
+}
+
+.pl5{
+    padding-left: 5px;
+}
+
+.br5{
+    border-radius: 4px;
+    border: 1px solid darkgrey;
+}
+
+.github-app .search-container .submit-btn{
+    color: #fff;
+    background-color: #008000bd;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.github-app .search-container .clear-btn{
+    color: #862721;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.github-app .list-container{
+    border: 1px solid darkgrey;
+    padding: 10px;
+}
+
+:disabled{
+    cursor: not-allowed;
+    opacity: 0.7;
+}
