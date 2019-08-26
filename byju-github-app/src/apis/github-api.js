@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+/**
+ * Configure axios with baseURL and headers
+ */
 export default axios.create({
     baseURL: 'https://api.github.com/users/',
     headers:{
