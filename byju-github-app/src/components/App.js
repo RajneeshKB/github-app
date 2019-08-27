@@ -15,7 +15,7 @@ class App extends Component{
      */
     constructor(props){
         super(props);
-        this.state = { result: [], filterResult: [], filterTerm:""};
+        this.state = { result: [], filterResult: [], filterTerm:"", noListFound: false};
     }
 
     /**
@@ -23,10 +23,17 @@ class App extends Component{
      * results is used to maintain original repo list fetched
      * filterResult is used to diplay data in DOM
      * @param {[]} list - list of objects containing data of fetched repos
+     * @param { boolean } isCleared - identifier to indicate that searchTerm is cleared from input box
      * 
      */
-    displayResult = (list) =>{
-        this.setState({result: [...list], filterResult: list});
+    displayResult = (list,isCleared) =>{
+        if (isCleared){ 
+            this.setState({ result: [], filterResult: [], noListFound: false });
+        } else if (list && list.length) {
+            this.setState({ result: [...list], filterResult: list, noListFound: false});
+        } else {
+            this.setState({noListFound: true});
+        }
     }
 
     /**
@@ -47,11 +54,18 @@ class App extends Component{
         }
     }
 
+    renderList(){
+        if (!this.state.noListFound) {
+            return <RepoList resultList={this.state.filterResult} filterTerm={this.state.filterTerm}></RepoList>
+        }
+        return <p> Error: No repository found for this user</p>
+    }
+
     render(){
         return (
             <div className="github-app">
                 <SearchBox onShow={this.displayResult} onFilter={this.filterResult}></SearchBox>
-                <RepoList resultList={this.state.filterResult} filterTerm={this.state.filterTerm}></RepoList>
+                {this.renderList()}
             </div>
         );
     }

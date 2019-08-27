@@ -24,10 +24,23 @@ class SearchBox extends Component{
      * Enables filter input box if user searches for any repositories.
      */
     findRepos = async ()=>{
-        let response = await gitapp.get(this.state.searchTerm + '/repos');
-        if (response && response.data && response.data.length){ 
-            this.props.onShow([...response.data]);
-            this.setState({ filterEnabled: true });
+        try{
+            if (!this.state.searchTerm){
+                this.props.onShow([],true);
+                this.setState({ filterEnabled: false });
+                return;
+            }
+            let response = await gitapp.get(this.state.searchTerm + '/repos');
+            if (response && response.data && response.data.length) {
+                this.props.onShow([...response.data]);
+                this.setState({ filterEnabled: true });
+            } else {
+                this.props.onShow([]);
+                this.setState({ filterEnabled: false });
+            }
+        }catch(err){
+            this.props.onShow([]);
+            this.setState({ filterEnabled: false });
         }
     }
 
@@ -47,7 +60,7 @@ class SearchBox extends Component{
     clearInput = (type)=>{
         if(type === 'search'){
             this.setState({ searchTerm: "", filterEnabled: false });
-            this.props.onShow([]);
+            this.props.onShow([],true);
         }else{
             this.setState({ filterTerm: "" },()=>{
                 this.props.onFilter(this.state.filterTerm);
